@@ -6,6 +6,8 @@ Metrics naming [convention](https://prometheus.io/docs/practices/naming/)
 ## How to run
 
 ### As helm chart(default)
+Set prefect2 url in values, then: \
+`helm3 upgrade prefect2 . --install --values values.yaml --namespace prefect2`
 
 ### As module:
 Set env vars:
