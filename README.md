@@ -1,2 +1,4 @@
-# prefect2-prometheus-exporter
-Simple prometheus exporter to export metrics from Prefect2
+# prefect-prometheus-exporter
+Python module to emit prefect2 metrics that are scraped by prometheus
+
+Metrics naming [convention](https://prometheus.io/docs/practices/naming/)
