@@ -1,0 +1,42 @@
+replicaCount: 1
+
+image:
+  repository: pathfinder177/prefect2-prometheus-exporter:1.0.0
+  pullPolicy: IfNotPresent
+  tag: 1.0.0
+
+nameOverride: ""
+fullnameOverride: ""
+env:
+  PREFECT_UI_API_URL: "SETME"
+  EXPORTER_PORT: 30042
+
+service:
+  type: ClusterIP
+  port: 30042
+  targetPort: 30042
+
+serviceMonitor:
+  interval: 15m
+  jobLabel: prefect2-prometheus-exporter
+  targetLabels:
+  - action: replace
+    replacement: prefect2
+    sourceLabels:
+    - target
+    targetLabel: target
+  - action: replace
+    replacement: http://prefect2-prometheus-exporter.prefect2.svc.cluster.local:30042
+    sourceLabels:
+    - instance
+    targetLabel: instance
+
+prometheusRule:
+  rules:
+
+  - alert: Prefect2FailedFlows1hIncreased
+    annotations:
+      summary: Prefect2 number of failed flows for 1h is increased
+      description: "Check prefect2 state and pod logs for errors"
+    expr: prefect2_flows_runs_1h{label="FAILED", container="prefect2-prometheus-exporter",job="prefect2-prometheus-exporter", namespace="prefect2",service="prefect2-prometheus-exporter"} > 1
+    for: 1h
