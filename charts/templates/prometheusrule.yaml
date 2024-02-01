@@ -1,0 +1,15 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: {{ template "prefect2-prometheus-exporter.fullname" . }}
+  labels:
+    {{- include "prefect2-prometheus-exporter.labels" . | nindent 4 }}
+    {{- with .Values.prometheusRule.additionalLabels -}}
+{{- toYaml . | nindent 4 -}}
+    {{- end }}
+spec:
+  {{- with .Values.prometheusRule.rules }}
+  groups:
+    - name: {{ template "prefect2-prometheus-exporter.name" $ }}
+      rules: {{ toYaml . | nindent 8 }}
+  {{- end }}
