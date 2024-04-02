@@ -1,6 +1,6 @@
 # prefect2-prometheus-exporter
-Python module to emit prefect2 metrics that are scraped by prometheus
-[Merged PR in Prometheus]([url](https://github.com/prometheus/docs/pull/2427))
+Python module to emit prefect2 metrics that are scraped by prometheus \
+[Merged PR in Prometheus](https://github.com/prometheus/docs/pull/2427)
 
 Metrics naming [convention](https://prometheus.io/docs/practices/naming/)
 
